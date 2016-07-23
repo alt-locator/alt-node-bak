@@ -1,0 +1,9 @@
+var name = require('../build/config').Config.locationName;
+var AltFirebaseService = require('../build/server/firebase.service').AltFirebaseService;
+AltFirebaseService.updateHost(name).then((result) => {
+  if (result) {
+    console.log('updated');
+  } else {
+    console.log('not updated');
+  }
+});

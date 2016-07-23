@@ -5,9 +5,6 @@
 import {Location, NodeModel} from '../node/location';
 import {Config} from '../config';
 import * as https from 'https';
-import * as promise from 'es6-promise';
-
-let Promise = promise.Promise;
 
 /**
  * The basic node body for the API with the last time it was updated. If it
@@ -27,7 +24,6 @@ export class AltFirebaseService {
    * @return {Promise<NodeObject[]} list of nodes
    */
   static getHosts(): Promise<NodeObject[]> {
-    console.log('getHosts');
     return new Promise<NodeObject[]>((resolve, reject) => {
       AltFirebaseClient.get().then((json) => {
         let hosts: NodeObject[] = []  ;
@@ -46,7 +42,6 @@ export class AltFirebaseService {
    * @return {Promise<boolean>} if the host encounters an error, return false
    */
   static updateHost(name: string): Promise<boolean> {
-    console.log('updateHost');
     // update the host information and perform a patch
     return new Promise<boolean>((resolve, reject) => {
       let node = new NodeModel();

@@ -3,9 +3,15 @@
     "module": "commonjs",
     "target": "es6",
     "noImplicitAny": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "declaration": false,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "outDir": "build/"
   },
   "exclude": [
-    "node_modules"
+    "build",
+    "node_modules",
+    "typings/globals"
   ]
 }
