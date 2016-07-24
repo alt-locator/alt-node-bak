@@ -1,10 +1,9 @@
-/**
- * Get the list of clients from Firebase
- */
-
+import {Logger} from 'top-banana-logger';
 import {Location, NodeModel} from '../node/location';
 import {Config} from '../config';
 import * as https from 'https';
+
+let logger = new Logger('alt.service');
 
 /**
  * The basic node body for the API with the last time it was updated. If it
@@ -50,8 +49,13 @@ export class AltFirebaseService {
         .then(node => Location.getLocalAddress(node))
         .then(node => Location.getExternalAddress(node))
         .then(node => {
-          AltFirebaseClient.patch(node as NodeObject);
-          resolve(true);
+          AltFirebaseClient.patch(node as NodeObject).then(results => {
+            if (results) {
+              resolve(true);
+            } else {
+              reject(false);
+            }
+          });
         })
         .catch(err => reject(false));
     });
@@ -101,26 +105,29 @@ export class AltFirebaseClient {
    * Updates the existing host
    * @param {NodeObject} The object that will be sent to Firebase to patch
    */
-  static patch(node: NodeObject) {
-    node.timestamp = new Date().getTime();
-    let options = {
-      host: Config.firebaseHost,
-      path: '/hosts/' + node.name + '/.json',
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-    let request = https.request(options, (response) => {
-      let content = '';
-      response.on('data', (chunk) => {
-        content += chunk;
+  static patch(node: NodeObject): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      node.timestamp = new Date().getTime();
+      let options = {
+        host: Config.firebaseHost,
+        path: '/hosts/' + node.name + '/.json',
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      let request = https.request(options, (response) => {
+        let content = '';
+        response.on('data', (chunk) => {
+          content += chunk;
+        });
+        response.on('end', () => {
+          logger.debug(content);
+          resolve(true);
+        });
       });
-      response.on('end', () => {
-        console.log(content);
-      });
+      request.write(JSON.stringify(node));
+      request.end();
     });
-    request.write(JSON.stringify(node));
-    request.end();
   }
 }

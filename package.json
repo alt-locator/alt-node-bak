@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "express": "^4.14.0",
-    "top-banana-logger": "0.0.3"
+    "top-banana-logger": "0.0.4"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",

@@ -1,9 +1,12 @@
 var name = require('../build/config').Config.locationName;
-var AltFirebaseService = require('../build/server/firebase.service').AltFirebaseService;
+var Logger = require('top-banana-logger').Logger;
+var logger = new Logger('bin');
+
+var AltFirebaseService = require('../build/server/alt.service').AltFirebaseService;
 AltFirebaseService.updateHost(name).then((result) => {
   if (result) {
-    console.log('updated');
+    logger.debug('updated');
   } else {
-    console.log('not updated');
+    logger.debug('not updated');
   }
 });

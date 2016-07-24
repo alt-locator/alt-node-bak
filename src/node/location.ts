@@ -1,6 +1,9 @@
 import {Config} from '../config';
+import {Logger} from 'top-banana-logger';
 import * as os from 'os';
 import * as https from 'https';
+
+let logger = new Logger('location');
 
 export class NodeModel {
   name: string;
@@ -22,6 +25,7 @@ export class Location {
       for (let ifacePos in ifaces) {
         ifaces[ifacePos].forEach(iface => {
           if (iface.family === 'IPv4' && !iface.internal) {
+            logger.debug('mac address:', iface.mac);
             node.macAddress = iface.mac;
             resolve(node);
           }
@@ -41,6 +45,7 @@ export class Location {
       for (let ifacePos in ifaces) {
         ifaces[ifacePos].forEach(iface => {
           if (iface.family === 'IPv4' && !iface.internal) {
+            logger.debug('local ip address:', iface.address);
             node.localIpAddress = iface.address;
             resolve(node);
           }
@@ -68,6 +73,7 @@ export class Location {
           content += chunk;
         });
         response.on('end', () => {
+          logger.debug('external ip address:', content);
           node.externalIpAddress = content;
           resolve(node);
         });
