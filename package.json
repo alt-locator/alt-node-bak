@@ -2,23 +2,29 @@
   "name": "alt-node",
   "version": "1.0.0",
   "description": "ALT in node",
-  "main": "index.js",
-  "scripts": {
-    "server": "node build/host.server",
-    "tsc": "tsc",
-    "typings": "typings install",
-    "update": "node bin/update"
-
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnishina/alt-node.git"
   },
   "author": "Craig Nishina <craig.nishina@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cnishina/alt-node/issues"
+  },
+  "homepage": "https://github.com/cnishina/alt-node#readme",
+  "scripts": {
+    "start": "node build/host.server",
+    "tsc": "tsc",
+    "typings": "typings install",
+    "update": "node bin/update"
+  },
   "dependencies": {
-    "es6-promise": "^3.2.1",
     "express": "^4.14.0",
-    "typescript": "^1.8.10",
-    "typings": "^1.3.2"
+    "top-banana-logger": "0.0.3"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "jasmine": "^2.4.1",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.2"
   }
 }
