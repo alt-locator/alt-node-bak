@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/cnishina/alt-node#readme",
   "scripts": {
-    "start": "node build/host.server",
+    "start": "node build/server/host.server",
     "tsc": "tsc",
     "typings": "typings install",
     "update": "node bin/update"
