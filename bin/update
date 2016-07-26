@@ -3,7 +3,7 @@ var Logger = require('top-banana-logger').Logger;
 var logger = new Logger('bin');
 
 var AltFirebaseService = require('../build/server/alt.service').AltFirebaseService;
-AltFirebaseService.updateHost(name).then((result) => {
+AltFirebaseService.updateThis().then((result) => {
   if (result) {
     logger.debug('updated');
   } else {
