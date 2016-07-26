@@ -2,10 +2,13 @@ import {Logger} from 'top-banana-logger';
 import {Config, CurrNode} from '../config';
 import {Location, NodeModel} from '../node/location';
 import {AltFirebaseService, AltFirebaseClient} from './alt.service';
-import * as https from 'https';
-import * as http from 'http';
+
 import * as express from 'express';
 import * as expressCore from 'express-serve-static-core';
+import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
+import * as path from 'path';
 
 let logger = new Logger('host.server');
 let app = express();
@@ -79,6 +82,14 @@ app.get('/patch',
     logger.debug('"GET /patch"', 500, err);
     response.status(500).send(err);
   });
+});
+
+app.get('/version',
+    (request: expressCore.Request,
+    response: expressCore.Response) => {
+  let contents = fs.readFileSync(path.resolve('package.json')).toString();
+  let json = JSON.parse(contents);
+  response.status(200).send({name: json.name, version: json.version, timestamp: new Date().toString()})
 });
 
 /**
