@@ -11,6 +11,11 @@ export class NodeModel {
   externalIpAddress: string;
   macAddress: string;
   ports: number[];
+  timestamp: number;
+
+  constructor(name?: string) {
+    this.name = name;
+  }
 }
 
 export class Location {

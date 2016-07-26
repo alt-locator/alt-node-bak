@@ -1,31 +1,22 @@
 import {Logger} from 'top-banana-logger';
 import {Location, NodeModel} from '../node/location';
-import {Config} from '../config';
+import {Config, CurrNode} from '../config';
 import * as https from 'https';
 
 let logger = new Logger('alt.service');
 
 /**
- * The basic node body for the API with the last time it was updated. If it
- * nothing has changed, maintain the timestamp.
- */
-export class NodeObject extends NodeModel {
-  timestamp: number;
-}
-
-/**
  * The Alt Firebase Service interacts with the Alt Firebase APIs.
  */
 export class AltFirebaseService {
-
   /**
-   * get the list of hosts from firebase
-   * @return {Promise<NodeObject[]} list of nodes
+   * Get the list of hosts from firebase.
+   * @return {Promise<NodeObject[]} List of nodes
    */
-  static getHosts(): Promise<NodeObject[]> {
-    return new Promise<NodeObject[]>((resolve, reject) => {
+  static getHosts(): Promise<NodeModel[]> {
+    return new Promise<NodeModel[]>((resolve, reject) => {
       AltFirebaseClient.get().then((json) => {
-        let hosts: NodeObject[] = []  ;
+        let hosts: NodeModel[] = [];
         let hostsJson = JSON.parse(json);
         for (let hostPos in hostsJson) {
           hosts.push(hostsJson[hostPos]);
@@ -36,20 +27,17 @@ export class AltFirebaseService {
   }
 
   /**
-   * Updates a host with this location
-   * @param {string} name of the host
-   * @return {Promise<boolean>} if the host encounters an error, return false
+   * Updates this host with this location.
+   * @return {Promise<boolean>} If the host encounters an error, return false
    */
-  static updateHost(name: string): Promise<boolean> {
-    // update the host information and perform a patch
+  static updateThis(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      let node = new NodeModel();
-      node.name = name;
-      Location.getMacAddress(node)
+      CurrNode.timestamp = new Date().getTime();
+      Location.getMacAddress(CurrNode)
         .then(node => Location.getLocalAddress(node))
         .then(node => Location.getExternalAddress(node))
         .then(node => {
-          AltFirebaseClient.patch(node as NodeObject).then(results => {
+          AltFirebaseClient.patch(node).then(results => {
             if (results) {
               resolve(true);
             } else {
@@ -60,17 +48,67 @@ export class AltFirebaseService {
         .catch(err => reject(false));
     });
   }
+
+  /**
+   * Update a location.
+   * @param {NodeModel} nodeModel
+   * @returns {Promise<boolean>} Status of location updated.
+   */
+  static updateLocation(nodeModel: NodeModel): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      nodeModel.timestamp = new Date().getTime();
+      AltFirebaseClient.patch(nodeModel).then(status => {
+        return status;
+      });
+    });
+  }
+
+  /**
+   * Update all local ip addresses.
+   * @returns Promise<Promise<boolean>[]> Array of booleans.
+   */
+  static updateAllLocal(): Promise<Promise<boolean>[]> {
+    let promises: Promise<boolean>[] = [];
+    AltFirebaseService.getHosts().then(nodeObjects => {
+      for (let pos in nodeObjects) {
+        let nodeObject = nodeObjects[pos];
+        if (CurrNode.externalIpAddress === nodeObject.externalIpAddress &&
+            CurrNode.localIpAddress !== nodeObject.localIpAddress) {
+          promises.push(new Promise<boolean>((resolve, reject) => {
+            let options = {
+              host: nodeObject.localIpAddress,
+              path: '/patch',
+              port: 3000
+            };
+            https.request(options, response => {
+              let contents = '';
+              response.on('data', (chunk) => {
+                contents += chunk;
+              });
+              response.on('end', () => {
+                logger.debug(contents);
+                resolve(true);
+              });
+              response.on('error', () => {
+                reject(false);
+              });
+            }).end();
+          }));
+        }
+      }
+    });
+    return Promise.all(promises);
+  }
 }
 
 /**
  * The Alt Firebase Client consists of the basic rest API interface.
  */
 export class AltFirebaseClient {
-
   /**
-   * The get request for the host or hosts
-   * @param {string?} optional host name param
-   * @return {Promise<string>} the get response body
+   * The get request for the host or hosts.
+   * @param {string?} opt_name If none is provided, get all hosts.
+   * @returns {Promise<string>} The get response body.
    */
   static get(opt_name?: string): Promise<string> {
     let path = '/hosts';
@@ -102,10 +140,10 @@ export class AltFirebaseClient {
   }
 
   /**
-   * Updates the existing host
-   * @param {NodeObject} The object that will be sent to Firebase to patch
+   * Updates the existing host.
+   * @param {NodeObject} node The object that will be sent to Firebase to patch.
    */
-  static patch(node: NodeObject): Promise<boolean> {
+  static patch(node: NodeModel): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       node.timestamp = new Date().getTime();
       let options = {
