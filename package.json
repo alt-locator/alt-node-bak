@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/cnishina/alt-node#readme",
   "scripts": {
+    "postinstall": "npm run typings && npm run tsc",
     "start": "node build/server/host.server",
     "tsc": "tsc",
     "typings": "typings install",
