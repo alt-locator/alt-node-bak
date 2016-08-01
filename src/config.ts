@@ -4,7 +4,7 @@ import {NodeModel, Location} from './node/location';
 Logger.logLevel = LogLevel.DEBUG;
 
 export let Config = {
-  firebaseHost: 'alternative-4ae3a.firebaseio.com',
+  firebaseHost: 'alt-github.firebaseio.com',
   locationName: os.hostname()
 }
 
