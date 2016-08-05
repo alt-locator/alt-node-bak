@@ -1,0 +1,23 @@
+language: node_js
+sudo: false
+node_js:
+  - "6"
+
+env:
+  global:
+    - CXX=g++-4.8
+    - ALT_NAME="test"
+    - ALT_HOST="alt-github.firebaseio.com"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+before_install:
+  - g++-4.8 --version
+
+script:
+  - npm run update
