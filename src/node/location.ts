@@ -1,5 +1,6 @@
-import {Config} from '../config';
-import {Logger} from 'top-banana-logger';
+import { Config } from '../config';
+import { Logger } from '../logger';
+
 import * as os from 'os';
 import * as https from 'https';
 

@@ -19,8 +19,7 @@
     "update": "node bin/update"
   },
   "dependencies": {
-    "express": "^4.14.0",
-    "top-banana-logger": "0.0.4"
+    "express": "^4.14.0"
   },
   "devDependencies": {
     "@types/express": "^4.0.33",

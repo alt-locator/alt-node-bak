@@ -1,6 +1,6 @@
-import {Logger} from 'top-banana-logger';
-import {Location, NodeModel} from '../node/location';
-import {Config, CurrNode} from '../config';
+import { Logger } from '../logger';
+import { Location, NodeModel } from '../node/location';
+import { Config, CurrNode } from '../config';
 import * as https from 'https';
 
 let logger = new Logger('alt.service');

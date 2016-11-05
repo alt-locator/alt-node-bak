@@ -1,5 +1,5 @@
 var name = require('../build/config').Config.locationName;
-var Logger = require('top-banana-logger').Logger;
+var Logger = require('../build/logger').Logger;
 var logger = new Logger('bin');
 
 var AltFirebaseService = require('../build/server/alt.service').AltFirebaseService;

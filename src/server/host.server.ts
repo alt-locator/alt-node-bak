@@ -1,7 +1,7 @@
-import {Logger} from 'top-banana-logger';
-import {Config, CurrNode} from '../config';
-import {Location, NodeModel} from '../node/location';
-import {AltFirebaseService, AltFirebaseClient} from './alt.service';
+import { Logger } from '../logger';
+import { Config, CurrNode } from '../config';
+import { Location, NodeModel } from '../node/location';
+import { AltFirebaseService, AltFirebaseClient } from './alt.service';
 
 import * as express from 'express';
 import * as expressCore from 'express-serve-static-core';
