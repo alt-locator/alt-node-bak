@@ -2,7 +2,7 @@ var name = require('../build/config').Config.locationName;
 var Logger = require('../build/logger').Logger;
 var logger = new Logger('bin');
 
-var AltFirebaseService = require('../build/server/alt.service').AltFirebaseService;
+var AltFirebaseService = require('../build/tool/alt.service').AltFirebaseService;
 AltFirebaseService.updateThis().then((result) => {
   if (result) {
     logger.debug('updated');

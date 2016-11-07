@@ -7,15 +7,13 @@ import * as https from 'https';
 let logger = new Logger('location');
 
 export class NodeModel {
-  name: string;
   localIpAddress: string;
   externalIpAddress: string;
   macAddress: string;
   ports: number[];
   timestamp: number;
 
-  constructor(name?: string) {
-    this.name = name;
+  constructor(public name?: string) {
   }
 }
 
@@ -25,7 +23,7 @@ export class Location {
    * @param {NodeModel} the node model to be updated
    * @return {Promise<NodeModel>} the node model with the mac address
    */
-  static getMacAddress(node: NodeModel): Promise<NodeModel> {
+  static macAddress(node: NodeModel): Promise<NodeModel> {
     return new Promise<NodeModel>((resolve, reject) => {
       let ifaces = os.networkInterfaces();
       for (let ifacePos in ifaces) {
@@ -45,7 +43,7 @@ export class Location {
    * @param {NodeModel} the node model to be updated
    * @return {Promise<NodeModel>} the node model with the local ip address
    */
-  static getLocalAddress(node: NodeModel): Promise<NodeModel> {
+  static localAddress(node: NodeModel): Promise<NodeModel> {
     return new Promise<NodeModel>((resolve, reject) => {
       let ifaces = os.networkInterfaces();
       for (let ifacePos in ifaces) {
@@ -65,7 +63,7 @@ export class Location {
    * @param {NodeModel} the node model to be updated
    * @return {Promise<NodeModel>} the node model with the external ip address
    */
-  static getExternalAddress(node: NodeModel): Promise<NodeModel> {
+  static externalAddress(node: NodeModel): Promise<NodeModel> {
     return new Promise<NodeModel>((resolve, reject) => {
       let options = {
         host: 'api.ipify.org'
