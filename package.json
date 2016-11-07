@@ -13,8 +13,10 @@
   },
   "homepage": "https://github.com/cnishina/alt-node#readme",
   "scripts": {
+    "clang": "gulp format:enforce",
     "postinstall": "npm run tsc",
     "start": "node build/server/host.server",
+    "test": "npm run tsc && npm run clang",
     "tsc": "tsc",
     "update": "node bin/update"
   },
@@ -26,6 +28,9 @@
   "devDependencies": {
     "@types/express": "^4.0.33",
     "@types/jasmine": "^2.5.37",
+    "clang-format": "^1.0.45",
+    "gulp": "^3.9.1",
+    "gulp-clang-format": "^1.0.23",
     "jasmine": "^2.4.1",
     "typescript": "^2.0.7"
   }
