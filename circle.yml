@@ -1,0 +1,7 @@
+machine:
+  post:
+    - npm install -g npm@3
+
+test:
+  override:
+    - npm test
