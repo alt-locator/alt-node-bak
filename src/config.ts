@@ -1,5 +1,5 @@
 import { Logger } from './logger';
-import { NodeModel, Location } from './node/location';
+import { NodeModel, Location } from './tool/location';
 
 import * as os from 'os';
 

@@ -1,5 +1,5 @@
 import { Logger } from '../logger';
-import { Location, NodeModel } from '../node/location';
+import { Location, NodeModel } from './location';
 import { Config, CurrNode } from '../config';
 import * as https from 'https';
 
@@ -33,9 +33,9 @@ export class AltFirebaseService {
   static updateThis(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       CurrNode.timestamp = new Date().getTime();
-      Location.getMacAddress(CurrNode)
-        .then(node => Location.getLocalAddress(node))
-        .then(node => Location.getExternalAddress(node))
+      Location.macAddress(CurrNode)
+        .then(node => Location.localAddress(node))
+        .then(node => Location.externalAddress(node))
         .then(node => {
           AltFirebaseClient.patch(node).then(results => {
             if (results) {
