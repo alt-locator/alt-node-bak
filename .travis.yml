@@ -20,4 +20,4 @@ before_install:
   - g++-4.8 --version
 
 script:
-  - npm run update
+  - npm test
