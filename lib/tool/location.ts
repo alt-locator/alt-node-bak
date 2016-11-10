@@ -1,8 +1,8 @@
-import { Config } from '../config';
-import { Logger } from '../logger';
-
-import * as os from 'os';
 import * as https from 'https';
+import * as os from 'os';
+
+import {Config} from '../config';
+import {Logger} from '../logger';
 
 let logger = new Logger('location');
 
@@ -13,8 +13,7 @@ export class NodeModel {
   ports: number[];
   timestamp: number;
 
-  constructor(public name?: string) {
-  }
+  constructor(public name?: string) {}
 }
 
 export class Location {
@@ -65,23 +64,22 @@ export class Location {
    */
   static externalAddress(node: NodeModel): Promise<NodeModel> {
     return new Promise<NodeModel>((resolve, reject) => {
-      let options = {
-        host: 'api.ipify.org'
-      };
-      https.request(options, response => {
-        let content = '';
-        if (response.statusCode !== 200) {
-          reject(null);
-        }
-        response.on('data', (chunk) => {
-          content += chunk;
-        });
-        response.on('end', () => {
-          logger.debug('external ip address:', content);
-          node.externalIpAddress = content;
-          resolve(node);
-        });
-      }).end();
+      let options = {host : 'api.ipify.org'};
+      https
+          .request(options,
+                   response => {
+                     let content = '';
+                     if (response.statusCode !== 200) {
+                       reject(null);
+                     }
+                     response.on('data', (chunk) => { content += chunk; });
+                     response.on('end', () => {
+                       logger.debug('external ip address:', content);
+                       node.externalIpAddress = content;
+                       resolve(node);
+                     });
+                   })
+          .end();
     });
   }
 }

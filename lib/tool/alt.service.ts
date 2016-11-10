@@ -1,7 +1,9 @@
-import { Logger } from '../logger';
-import { Location, NodeModel } from './location';
-import { Config, CurrNode } from '../config';
 import * as https from 'https';
+
+import {Config, CurrNode} from '../config';
+import {Logger} from '../logger';
+
+import {Location, NodeModel} from './location';
 
 let logger = new Logger('alt.service');
 
@@ -34,18 +36,18 @@ export class AltFirebaseService {
     return new Promise<boolean>((resolve, reject) => {
       CurrNode.timestamp = new Date().getTime();
       Location.macAddress(CurrNode)
-        .then(node => Location.localAddress(node))
-        .then(node => Location.externalAddress(node))
-        .then(node => {
-          AltFirebaseClient.patch(node).then(results => {
-            if (results) {
-              resolve(true);
-            } else {
-              reject(false);
-            }
-          });
-        })
-        .catch(err => reject(false));
+          .then(node => Location.localAddress(node))
+          .then(node => Location.externalAddress(node))
+          .then(node => {
+            AltFirebaseClient.patch(node).then(results => {
+              if (results) {
+                resolve(true);
+              } else {
+                reject(false);
+              }
+            });
+          })
+          .catch(err => reject(false));
     });
   }
 
@@ -57,9 +59,7 @@ export class AltFirebaseService {
   static updateLocation(nodeModel: NodeModel): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       nodeModel.timestamp = new Date().getTime();
-      AltFirebaseClient.patch(nodeModel).then(status => {
-        return status;
-      });
+      AltFirebaseClient.patch(nodeModel).then(status => { return status; });
     });
   }
 
@@ -76,23 +76,23 @@ export class AltFirebaseService {
             CurrNode.localIpAddress !== nodeObject.localIpAddress) {
           promises.push(new Promise<boolean>((resolve, reject) => {
             let options = {
-              host: nodeObject.localIpAddress,
-              path: '/patch',
-              port: 3000
+              host : nodeObject.localIpAddress,
+              path : '/patch',
+              port : 3000
             };
-            https.request(options, response => {
-              let contents = '';
-              response.on('data', (chunk) => {
-                contents += chunk;
-              });
-              response.on('end', () => {
-                logger.debug(contents);
-                resolve(true);
-              });
-              response.on('error', () => {
-                reject(false);
-              });
-            }).end();
+            https
+                .request(options,
+                         response => {
+                           let contents = '';
+                           response.on('data',
+                                       (chunk) => { contents += chunk; });
+                           response.on('end', () => {
+                             logger.debug(contents);
+                             resolve(true);
+                           });
+                           response.on('error', () => { reject(false); });
+                         })
+                .end();
           }));
         }
       }
@@ -118,21 +118,15 @@ export class AltFirebaseClient {
     path += '.json';
     let promise = new Promise<any>((resolve, reject) => {
       let options = {
-        host: Config.firebaseHost,
-        path: path,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+        host : Config.firebaseHost,
+        path : path,
+        method : 'GET',
+        headers : {'Content-Type' : 'application/json'}
+      };
       let request = https.request(options, (response) => {
         let contents = '';
-        response.on('data', (chunk) => {
-          contents += chunk;
-        });
-        response.on('end', () => {
-          resolve(contents);
-        });
+        response.on('data', (chunk) => { contents += chunk; });
+        response.on('end', () => { resolve(contents); });
       });
       request.end();
     });
@@ -147,18 +141,14 @@ export class AltFirebaseClient {
     return new Promise<boolean>((resolve, reject) => {
       node.timestamp = new Date().getTime();
       let options = {
-        host: Config.firebaseHost,
-        path: '/hosts/' + node.name + '/.json',
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        host : Config.firebaseHost,
+        path : '/hosts/' + node.name + '/.json',
+        method : 'PATCH',
+        headers : {'Content-Type' : 'application/json'}
       };
       let request = https.request(options, (response) => {
         let content = '';
-        response.on('data', (chunk) => {
-          content += chunk;
-        });
+        response.on('data', (chunk) => { content += chunk; });
         response.on('end', () => {
           logger.debug(content);
           resolve(true);
