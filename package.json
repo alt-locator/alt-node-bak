@@ -4,30 +4,33 @@
   "description": "ALT in node",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cnishina/alt-node.git"
+    "url": "git+https://github.com/alt-locator/alt-node.git"
   },
   "author": "Craig Nishina <craig.nishina@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cnishina/alt-node/issues"
+    "url": "https://github.com/alt-locator/alt-node/issues"
   },
-  "homepage": "https://github.com/cnishina/alt-node#readme",
+  "homepage": "https://github.com/alt-locator/alt-node#readme",
   "scripts": {
     "clang": "gulp format:enforce",
+    "format": "gulp format",
     "postinstall": "npm run tsc",
+    "pretest": "npm run tsc && npm run format",
     "start": "node build/server/host.server",
-    "test": "npm run tsc && npm run clang",
-    "tsc": "tsc",
-    "update": "node bin/update"
+    "test": "jasmine",
+    "tsc": "tsc"
   },
   "dependencies": {
-    "@types/minimist": "^1.1.29",
     "express": "^4.14.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "rimraf": "^2.5.4"
   },
   "devDependencies": {
     "@types/express": "^4.0.33",
     "@types/jasmine": "^2.5.37",
+    "@types/minimist": "^1.1.29",
+    "@types/rimraf": "0.0.28",
     "clang-format": "^1.0.45",
     "gulp": "^3.9.1",
     "gulp-clang-format": "^1.0.23",

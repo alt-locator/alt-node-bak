@@ -1,12 +1,13 @@
-var name = require('../build/config').Config.locationName;
-var Logger = require('../build/logger').Logger;
-var logger = new Logger('bin');
-
-var AltFirebaseService = require('../build/tool/alt.service').AltFirebaseService;
-AltFirebaseService.updateThis().then((result) => {
-  if (result) {
-    logger.debug('updated');
-  } else {
-    logger.debug('not updated');
-  }
-});
+// var Logger = require('../build/logger').Logger;
+// var logger = new Logger('bin');
+//
+// var Hosts = require('../build/tool/hosts').Hosts;
+// var hosts1 = new Hosts();
+//
+// hosts1.getHosts().then(hosts => {
+//   if (hosts) {
+//     logger.debug('hosts', hosts);
+//   } else {
+//     logger.debug('no hosts');
+//   }
+// });
