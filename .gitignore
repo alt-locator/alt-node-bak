@@ -1,6 +1,5 @@
-build
-node_modules
-typings
-build
+build/
+node_modules/
 
+*file.json
 npm-debug.log*

@@ -26,7 +26,7 @@ export class Logger {
 
   dateTime(): string { return new Date().toTimeString(); }
 
-  log(logLevel: LogLevel, args: any) {
+  log(logLevel: LogLevel, args: any[]) {
     let tags = '';
     if (this.useTimestamp_) {
       tags += '[' + this.dateTime() + '] ';
@@ -55,7 +55,10 @@ export class Logger {
     }
   }
 
-  infoConsole(tags: string, args: any) { console.log(tags, args); }
+  infoConsole(tags: string, args: any[]) {
+    args.unshift(tags);
+    console.log.apply(console, args);
+  }
 
   debugConsole(tags: string, args: any) { console.debug(tags, args); }
 
