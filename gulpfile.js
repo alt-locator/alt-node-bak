@@ -1,7 +1,11 @@
 'use strict';
 
-var gulp = require('gulp');
-var spawn = require('child_process').spawn;
+const clangFormat = require('clang-format');
+const format = require('gulp-clang-format');
+const gulp = require('gulp');
+const spawn = require('child_process').spawn;
+const tslint = require('gulp-tslint');
+
 
 var runSpawn = (done, task, opt_arg, opt_io) => {
   opt_arg = typeof opt_arg !== 'undefined' ? opt_arg : [];
@@ -26,22 +30,17 @@ var runSpawn = (done, task, opt_arg, opt_io) => {
   });
 };
 
-gulp.task('tsc', (done) => {
-  runSpawn(done, 'node', ['node_modules/.bin/tsc']);
-});
-
 gulp.task('format:enforce', () => {
-  let format = require('gulp-clang-format');
-  let clangFormat = require('clang-format');
   return gulp.src(['lib/**/*.ts']).pipe(
     format.checkFormat('file', clangFormat, {verbose: true, fail: true}));
 });
 
 gulp.task('format', () => {
-  let format = require('gulp-clang-format');
-  let clangFormat = require('clang-format');
   return gulp.src(['lib/**/*.ts'], { base: '.' }).pipe(
     format.format('file', clangFormat)).pipe(gulp.dest('.'));
 });
 
-gulp.task('test', ['tsc', 'format:enforce']);
+gulp.task('tslint', () => {
+  return gulp.src(['lib/**/*.ts', 'spec/**/*.ts'])
+      .pipe(tslint()).pipe(tslint.report());
+});
