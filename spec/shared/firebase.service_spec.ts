@@ -74,7 +74,7 @@ describe('firebase storage service', () => {
       }).catch(error => {
         done.fail();
       });
-    })
+    });
   });
 
   /**

@@ -12,8 +12,8 @@ export class AltService {
   updateThis(): Promise<boolean> {
     let location = new Location(config.locationName);
     return Location.macAddress(location).then(location => {
-      Location.localAddress(location).then(location => {
-        Location.externalAddress(location).then(
+      return Location.localAddress(location).then(location => {
+        return Location.externalAddress(location).then(
             location => { return this.updateHost(location); });
       });
     });

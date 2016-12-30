@@ -8,4 +8,4 @@ export let config = {
       process.env['ALT_FIREBASE_HOST'] || 'alt-github.firebaseio.com',
   firebasePath : process.env['ALT_FIREBASE_PATH'] || '/hosts',
   fileName : process.env['ALT_FILENAME'] || 'file.json'
-}
+};
