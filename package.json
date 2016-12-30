@@ -13,12 +13,12 @@
   },
   "homepage": "https://github.com/alt-locator/alt-node#readme",
   "scripts": {
-    "clang": "gulp format:enforce",
+    "checks": "npm run tslint && npm run format_enforce",
     "format": "gulp format",
-    "postinstall": "npm run tsc",
-    "pretest": "npm run tsc && npm run format",
-    "start": "node build/server/host.server",
+    "format_enforce": "gulp format:enforce",
+    "pretest": "npm run checks && npm run format && npm run tsc",
     "test": "jasmine",
+    "tslint": "gulp tslint",
     "tsc": "tsc"
   },
   "dependencies": {
@@ -27,14 +27,18 @@
     "rimraf": "^2.5.4"
   },
   "devDependencies": {
-    "@types/express": "^4.0.33",
-    "@types/jasmine": "^2.5.37",
-    "@types/minimist": "^1.1.29",
+    "@types/express": "^4.0.34",
+    "@types/jasmine": "^2.5.40",
+    "@types/minimist": "^1.2.0",
     "@types/rimraf": "0.0.28",
-    "clang-format": "^1.0.45",
+    "clang-format": "^1.0.46",
     "gulp": "^3.9.1",
     "gulp-clang-format": "^1.0.23",
-    "jasmine": "^2.4.1",
-    "typescript": "^2.0.7"
+    "gulp-tslint": "^7.0.1",
+    "jasmine": "^2.5.2",
+    "tslint": "^4.2.0",
+    "tslint-eslint-rules": "^3.2.3",
+    "typescript": "^2.1.4",
+    "vrsource-tslint-rules": "^4.0.0"
   }
 }
