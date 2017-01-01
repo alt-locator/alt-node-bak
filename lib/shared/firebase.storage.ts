@@ -6,15 +6,14 @@ import {Logger} from '../logger';
 import {AltStorage} from './alt.storage';
 import {Location} from './location';
 
-let logger = new Logger('firebase');
-
 export class FirebaseStorage extends AltStorage {
-
+  logger: Logger;
   firebaseHost: string;
   firebasePath: string;
 
   constructor() {
     super();
+    this.logger = new Logger('firebase');
     this.firebaseHost = config.firebaseHost;
     this.firebasePath = config.firebasePath;
   }
@@ -99,7 +98,7 @@ export class FirebaseStorage extends AltStorage {
         let content = '';
         response.on('data', chunk => { content += chunk; });
         response.on('end', () => {
-          logger.debug(content);
+          this.logger.debug(content);
           resolve(true);
         });
         response.on('error', error => { reject(error); });

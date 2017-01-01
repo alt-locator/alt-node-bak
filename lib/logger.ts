@@ -1,5 +1,6 @@
 export enum LogType {
-  CONSOLE
+  CONSOLE,
+  NONE
 }
 
 export enum LogLevel {
@@ -10,11 +11,10 @@ export enum LogLevel {
 }
 
 export class Logger {
-
-  constructor(private name_: string,
-              private logType_: LogType = LogType.CONSOLE,
-              private useTimestamp_: boolean = true,
-              private useChalk_: boolean = false) {}
+  constructor(public name_: string, public useTimestamp_: boolean = true,
+              public useLogLevel_: boolean = true,
+              public logType: LogType = LogType.CONSOLE,
+              public useChalk_: boolean = false) {}
 
   info(...args: any[]) { this.log(LogLevel.INFO, args); }
 
@@ -32,31 +32,37 @@ export class Logger {
       tags += '[' + this.dateTime() + '] ';
     }
 
-    switch (logLevel) {
-    case LogLevel.INFO:
-      tags += 'I/';
-      break;
-    case LogLevel.DEBUG:
-      tags += 'D/';
-      break;
-    case LogLevel.WARN:
-      tags += 'W/';
-      break;
-    case LogLevel.ERROR:
-      tags += 'E/';
-      break;
+    if (this.useLogLevel_) {
+      switch (logLevel) {
+      case LogLevel.INFO:
+        tags += 'I/';
+        break;
+      case LogLevel.DEBUG:
+        tags += 'D/';
+        break;
+      case LogLevel.WARN:
+        tags += 'W/';
+        break;
+      case LogLevel.ERROR:
+        tags += 'E/';
+        break;
+      }
+      tags += this.name_;
     }
-    tags += this.name_;
 
-    switch (this.logType_) {
+    switch (this.logType) {
     case LogType.CONSOLE:
       this.infoConsole(tags, args);
+      break;
+    case LogType.NONE:
       break;
     }
   }
 
   infoConsole(tags: string, args: any[]) {
-    args.unshift(tags);
+    if (tags !== '') {
+      args.unshift(tags);
+    }
     console.log.apply(console, args);
   }
 

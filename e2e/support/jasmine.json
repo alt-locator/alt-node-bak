@@ -1,0 +1,6 @@
+{
+  "spec_dir": "build/e2e",
+  "spec_files": [
+    "**/*_spec.js"
+  ]
+}

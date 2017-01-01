@@ -1,5 +1,6 @@
 import {AltService, FirebaseStorage, Location} from '../../lib/shared';
 import {config} from '../../lib/config';
+import {LogType} from '../../lib/logger';
 
 describe('firebase storage service', () => {
   let altService: AltService;
@@ -10,6 +11,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       firebasePath = '/test/read/hosts';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
     });
@@ -44,6 +46,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       let firebaseHost = 'https://foobar.com';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebaseHost(firebaseHost);
       altService = new AltService(firebaseStorage);
     });
@@ -62,6 +65,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       firebasePath = '/test/read/empty';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
     });
@@ -104,6 +108,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       firebasePath = '/test/write/hosts';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
     });
@@ -129,6 +134,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       firebasePath = '/test/write/hosts';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
     });
@@ -179,6 +185,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       let firebaseHost = 'https://foobar.com';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebaseHost(firebaseHost);
       altService = new AltService(firebaseStorage);
     });
@@ -198,6 +205,7 @@ describe('firebase storage service', () => {
     beforeEach((done) => {
       firebasePath = '/test/delete/hosts';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
 
@@ -220,6 +228,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       firebasePath = '/test/delete/hosts';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebasePath(firebasePath);
       altService = new AltService(firebaseStorage);
     });
@@ -238,6 +247,7 @@ describe('firebase storage service', () => {
     beforeEach(() => {
       let firebaseHost = 'https://foobar.com';
       firebaseStorage = new FirebaseStorage();
+      firebaseStorage.logger.logType = LogType.NONE;
       firebaseStorage.setFirebaseHost(firebaseHost);
       altService = new AltService(firebaseStorage);
     });
