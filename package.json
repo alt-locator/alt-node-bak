@@ -14,10 +14,12 @@
   "homepage": "https://github.com/alt-locator/alt-node#readme",
   "scripts": {
     "checks": "npm run tslint && npm run format_enforce",
+    "e2e": "jasmine JASMINE_CONFIG_PATH=e2e/support/jasmine.json",
     "format": "gulp format",
     "format_enforce": "gulp format:enforce",
+    "jasmine": "jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.json",
     "pretest": "npm run checks && npm run format && npm run tsc",
-    "test": "jasmine",
+    "test": "npm run jasmine && npm run e2e",
     "tslint": "gulp tslint",
     "tsc": "tsc"
   },
