@@ -1,7 +1,11 @@
 machine:
   node:
-    version: 6.9.1
+    version: 7.5.0
+
+dependencies:
+  override:
+    - yarn
 
 test:
   override:
-    - npm test
+    - yarn test
