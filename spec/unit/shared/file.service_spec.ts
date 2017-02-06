@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
 
-import {AltService, FileStorage, Location} from '../../lib/shared';
-import {config} from '../../lib/config';
+import {AltService, FileStorage, Location} from '../../../lib/shared';
+import {config} from '../../../lib/config';
 
 describe('file storage service', () => {
   let altService: AltService;

@@ -1,5 +1,5 @@
 {
-  "spec_dir": "build/e2e",
+  "spec_dir": "build/spec/e2e",
   "spec_files": [
     "**/*_spec.js"
   ]
