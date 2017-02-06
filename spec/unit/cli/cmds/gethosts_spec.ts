@@ -1,5 +1,5 @@
-import {GetHosts} from '../../../lib/cli/cmds/gethosts';
-import {LogType} from '../../../lib/logger';
+import {GetHosts} from '../../../../lib/cli/cmds/gethosts';
+import {LogType} from '../../../../lib/logger';
 
 describe('command get hosts', () => {
   it('get hosts', (done) => {

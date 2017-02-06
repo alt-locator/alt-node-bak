@@ -1,6 +1,6 @@
-import {AltService, FirebaseStorage, Location} from '../../lib/shared';
-import {config} from '../../lib/config';
-import {LogType} from '../../lib/logger';
+import {AltService, FirebaseStorage, Location} from '../../../lib/shared';
+import {config} from '../../../lib/config';
+import {LogType} from '../../../lib/logger';
 
 describe('firebase storage service', () => {
   let altService: AltService;
