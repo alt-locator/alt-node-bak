@@ -8,7 +8,7 @@ import {LocationConfig} from './location_config';
 /**
  * The configuration interface defined by other types of configurations.
  */
-export interface Config extends FileConfig, FirebaseConfig, LocationConfig { }
+export interface Config extends FileConfig, FirebaseConfig, LocationConfig {}
 
 /**
  * Configuration instance.
