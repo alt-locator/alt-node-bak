@@ -1,5 +1,5 @@
 import {Logger} from '../../logger';
-import {AltService, AltStorage, FirebaseStorage} from '../../shared';
+import {AltService, AltStorage, FirebaseStorage} from '../../storage';
 import {Option} from '../option';
 import {Args, Program} from '../program';
 

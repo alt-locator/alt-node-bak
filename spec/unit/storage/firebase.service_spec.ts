@@ -1,4 +1,4 @@
-import {AltService, FirebaseStorage, Location} from '../../../lib/shared';
+import {AltService, FirebaseStorage, Location} from '../../../lib/storage';
 import {config} from '../../../lib/config';
 import {LogType} from '../../../lib/logger';
 

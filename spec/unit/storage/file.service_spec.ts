@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
 
-import {AltService, FileStorage, Location} from '../../../lib/shared';
+import {AltService, FileStorage, Location} from '../../../lib/storage';
 import {config} from '../../../lib/config';
 
 describe('file storage service', () => {
