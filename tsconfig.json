@@ -6,7 +6,6 @@
     "sourceMap": false,
     "declaration": false,
     "removeComments": false,
-    "noImplicitAny": false,
     "outDir": "build/"
   },
   "exclude": [
