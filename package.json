@@ -17,11 +17,11 @@
     "e2e": "jasmine JASMINE_CONFIG_PATH=spec/e2e/support/jasmine.json",
     "format": "gulp format",
     "format_enforce": "gulp format:enforce",
+    "int": "jasmine JASMINE_CONFIG_PATH=spec/int/support/jasmine.json",
     "pretest": "npm run checks && npm run format && npm run tsc",
-    "test": "npm run unit && npm run e2e",
+    "test": "npm run int && npm run e2e",
     "tslint": "gulp tslint",
-    "tsc": "tsc",
-    "unit": "jasmine JASMINE_CONFIG_PATH=spec/unit/support/jasmine.json"
+    "tsc": "tsc"
   },
   "dependencies": {
     "express": "^4.14.0",
